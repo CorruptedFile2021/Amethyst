@@ -7,6 +7,7 @@ import backend_functions
 import threading
 import pyautogui
 from argostranslate import package as argos_package
+import webview.platforms
 import argostranslate.translate
 import pathlib
 import pystray
@@ -14,19 +15,23 @@ from PIL import Image
 import sys
 
 
+Windows = []
+
+
 def create_image():
-    image = Image.open("images\logo_1.png")
-    return image
+  image = Image.open("images\logo_1.png")
+  return image
 
 def on_quit(icon, item):
-    icon.stop()
-    MainWindow.destroy()
-    sys.exit()
+  icon.stop()
+  for window in Windows:
+      window.destroy()
+  sys.exit()
 
-def on_window_close(window):
-    print("yess")
-    window.hide()
-    return False
+def on_window_close():
+  MainWindow.hide()
+  TranslationWindow.hide()
+  return False
 
 
 
@@ -86,9 +91,26 @@ MainWindow = webview.create_window(
     width=Appwidth,
     height=Appheight,
     resizable=False,
-    js_api=backend_functions.BACKEND_FUNCTIONS(),
-    
+    js_api=backend_functions.BACKEND_FUNCTIONS(),    
 )
+
+TranslationWindow = webview.create_window(
+    "Tanslation Output",
+    "frontend/translation_result.html",
+    width=800,
+    height=200,
+    resizable=False,
+    frameless=True,
+    transparent=True,
+)
+
+#TranslationWindow.events.loaded += apply_blur
+
+
+Windows.append(MainWindow)
+Windows.append(TranslationWindow)
+
+
 
 MainWindow.events.closing += on_window_close
 
@@ -103,7 +125,7 @@ def setup_tray():
 threading.Thread(target=setup_tray, daemon=True).start()
 threading.Thread(target=backend_functions.translate_hotkey_listener, daemon=True).start()
 
+webview.start(gui='edgechromium', func=None, debug=False, http_server=True)
 
-webview.start(gui='edgechromium', func=None, debug=False, http_server=True,ssl=True)
 
 

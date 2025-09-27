@@ -1,0 +1,45 @@
+/* Full page background image */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background image layer */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    
+    background: linear-gradient(rgb(218, 214, 223),rgb(217, 215, 218));
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+/* Overlay layer with blur */
+.overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Translation text */
+#translation-result {
+    z-index: 3;  /* above overlay */
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}

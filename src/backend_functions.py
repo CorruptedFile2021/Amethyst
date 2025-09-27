@@ -68,6 +68,19 @@ def on_translate_hotkey():
             }
             translation_response = requests.post(url="http://127.0.0.1:5000/translate",data=TRANSLATE_REQUEST_INFO)
             print(translation_response.json())
+            
+            if os.path.exists("translation_results.json") == False:
+                with open("translation_results.json","w") as results_file:
+                    results_file.write("[]")
+            
+            with open("translation_results.json", "r") as results_history:
+                # Load the existing list of results (e.g., [])
+                old_results = json.load(results_history)
+
+            old_results.append(translation_response.json())
+
+            with open("translation_results.json","w") as results_history:
+                json.dump(old_results,results_history,indent=4)
     except:
         pass
 

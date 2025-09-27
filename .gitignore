@@ -4,3 +4,6 @@
 /amethyst_reqs.txt
 /src/test.py
 /translate_models
+/translation_results.json
+
+/db
