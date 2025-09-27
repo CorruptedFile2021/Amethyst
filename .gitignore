@@ -2,3 +2,5 @@
 /src/__pycache__
 /settings.json
 /amethyst_reqs.txt
+/src/test.py
+/translate_models
