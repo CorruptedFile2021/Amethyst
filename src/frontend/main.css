@@ -1,0 +1,36 @@
+/* Body and background */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: rgb(22, 22, 22);
+}
+
+/* Particle styling */
+.particle {
+  position: absolute;
+  background: #403f3f33; /* Semi-transparent white */
+  border-radius: 50%;
+  animation: float linear infinite;
+}
+
+/* Float animation */
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-500px) translateX(100px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0) translateX(-100px);
+    opacity: 1;
+  }
+}
+
+.title-text{
+  font-weight: 800;
+}
